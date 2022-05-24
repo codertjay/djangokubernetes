@@ -17,7 +17,10 @@ BASE_DIR = CURRENT_DIR.parent
 ENV_FILE_PATH = BASE_DIR / ".env"
 
 print('fike path ---------------------',ENV_FILE_PATH)
-# dotenv.read_dotenv(str(ENV_FILE_PATH))
+try:
+    dotenv.read_dotenv(str(ENV_FILE_PATH))
+except Exception as a:
+    print("Dotenv has error",a)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangok8.settings')
 
