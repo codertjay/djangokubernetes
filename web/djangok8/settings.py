@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,9 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get("DEBUG")) == "1"
+DEBUG = str(config("DEBUG")) == "1"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -79,11 +80,11 @@ DATABASES = {
     }
 }
 
-DB_USERNAME = os.environ.get("POSTGRES_USER")
-DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-DB_DATABASE = os.environ.get("POSTGRES_DB")
-DB_HOST = os.environ.get("POSTGRES_HOST")
-DB_PORT = os.environ.get("POSTGRES_PORT")
+DB_USERNAME = config("POSTGRES_USER")
+DB_PASSWORD = config("POSTGRES_PASSWORD")
+DB_DATABASE = config("POSTGRES_DB")
+DB_HOST = config("POSTGRES_HOST")
+DB_PORT = config("POSTGRES_PORT")
 
 DB_IS_AVAIL = all([
     DB_USERNAME,
@@ -93,7 +94,7 @@ DB_IS_AVAIL = all([
     DB_PORT
 ])
 
-POSTGRES_READY = str(os.environ.get("POSTGRES_READY")) == "1"
+POSTGRES_READY = str(config("POSTGRES_READY")) == "1"
 
 if DB_IS_AVAIL and POSTGRES_READY:
     DATABASES = {
